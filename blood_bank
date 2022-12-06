@@ -8,7 +8,7 @@ void mainmenu(void);
 void addNewDonors(void);
 void viewListOfDonor(void);
 void searchDonor(void);
-void editDonar(void) ;
+void editDonor(void) ;
 void deleteDonors(void);
 void gotoxy (int x, int y);
 
@@ -22,7 +22,7 @@ void gotoxy (int x, int y)
 }
 
 char password[10]= {"joy"};
-char findbook;
+char finddonor;
 
 
 FILE *fp,*ft;
@@ -86,7 +86,7 @@ void mainmenu()
         searchDonor();
         break;
     case '4':
-        editDonar();
+        editDonor();
         break;
     case '5':
         deleteDonors();
@@ -155,7 +155,7 @@ void addNewDonors(void)    //funtion that add donors
     system("cls");
     int i;
     system("cls");
-    fp=fopen("Bibek.dat","ab+");
+    fp=fopen("List.dat","ab+");
     if(getdata()==1)
     {
         fseek(fp,0,SEEK_END);
@@ -227,13 +227,13 @@ int getdata()
     printf("Information of donors:");
     gotoxy(31,5);
     gotoxy(22,6);
-    printf("Donar  ID:\t");
+    printf("Donor  ID:\t");
     gotoxy(33,6);
     scanf("%d",&t);
     if(checkid(t) == 0)
     {
         gotoxy(21,13);
-        printf("\aThe book id already exists\a");
+        printf("\aThe donor id already exists\a");
         getch();
         mainmenu();
         return 0;
@@ -283,7 +283,7 @@ void viewListOfDonor(void)    //funtion that view donor
     gotoxy(2,2);
     printf("     ID    DONAR NAME  BLOOD GROUP  N.OF DONATION  Last Date  PH.NUMBER    EMAIL ");
     j=4;
-    fp=fopen("Bibek.dat","rb");
+    fp=fopen("List.dat","rb");
     while(fread(&a,sizeof(a),1,fp)==1)
     {
         gotoxy(3,j);
@@ -330,7 +330,7 @@ void searchDonor(void)    //funtion that add donors
     printf("\xDB\xDB\xDB\xB2 2. Search By Name");
     gotoxy( 15,20);
     printf("Enter Your Choice");
-    fp=fopen("Bibek.dat","rb+"); //open file for reading propose
+    fp=fopen("List.dat","rb+"); //open file for reading propose
     rewind(fp);   //move pointer at the begining of file
     switch(getch())
     {
@@ -340,7 +340,7 @@ void searchDonor(void)    //funtion that add donors
         gotoxy(25,4);
         printf("****Search Donors By Id****");
         gotoxy(20,5);
-        printf("Enter the Donar id:");
+        printf("Enter the Donor id:");
         scanf("%d",&d);
         gotoxy(20,7);
         printf("Searching........");
@@ -349,7 +349,7 @@ void searchDonor(void)    //funtion that add donors
             if(a.id==d)
             {
                 gotoxy(20,7);
-                printf("The Donar is available");
+                printf("The Donor is available");
                 gotoxy(20,8);
                 printf("\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2");
                 printf("\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2");
@@ -386,11 +386,11 @@ void searchDonor(void)    //funtion that add donors
                 gotoxy(20,16);
                 printf("\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2");
                 printf("\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2");
-                findbook='t';
+                finddonor='t';
             }
 
         }
-        if(findbook!='t')  //checks whether conditiion enters inside loop or not
+        if(finddonor!='t')  //checks whether conditiion enters inside loop or not
         {
             gotoxy(20,8);
             printf("\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2");
@@ -497,7 +497,7 @@ void searchDonor(void)    //funtion that add donors
     }
     fclose(fp);
 }
-void editDonar(void)    //funtion that add Donars
+void editDonor(void)    //funtion that add Donars
 {
 
     system("cls");
@@ -512,15 +512,15 @@ void editDonar(void)    //funtion that add Donars
         gotoxy(15,6);
         printf("Enter Donar Id to be edited:");
         scanf("%d",&d);
-        fp=fopen("Bibek.dat","rb+");
+        fp=fopen("List.dat","rb+");
         while(fread(&a,sizeof(a),1,fp)==1)
         {
             if(checkid(d)==0)
             {
                 gotoxy(15,7);
-                printf("The donar is availble");
+                printf("The donor is availble");
                 gotoxy(15,8);
-                printf("The Donar ID:%d",a.id);
+                printf("The Donor ID:%d",a.id);
                 gotoxy(15,9);
                 printf("Enter new name:");
                 scanf("%s",a.name);
@@ -528,7 +528,7 @@ void editDonar(void)    //funtion that add Donars
                 printf("Enter new blood group:");
                 scanf("%s",a.bloodGroup);
                 gotoxy(15,11);
-                printf("Enter new n.of blood donation:");
+                printf("Enter new number of blood donation:");
                 scanf("%d",&a.numberOfBloodD);
                 gotoxy(15,12);
                 printf("Enter last date of blood donation:");
@@ -560,7 +560,7 @@ void editDonar(void)    //funtion that add Donars
     }
     returnfunc();
 }
-void deleteDonors(void)    //funtion that delete donor
+void deleteDonors(void)    //function that delete donor
 {
     system("cls");
     int d;
@@ -569,9 +569,9 @@ void deleteDonors(void)    //funtion that delete donor
     {
         system("cls");
         gotoxy(10,5);
-        printf("Enter the Donar ID to  delete:");
+        printf("Enter the Donor ID to  delete:");
         scanf("%d",&d);
-        fp=fopen("Bibek.dat","rb+");
+        fp=fopen("List.dat","rb+");
         rewind(fp);
         while(fread(&a,sizeof(a),1,fp)==1)
         {
@@ -582,17 +582,17 @@ void deleteDonors(void)    //funtion that delete donor
                 printf("The Donor record is available");
                 gotoxy(10,8);
                 printf("Donor name is %s",a.name);
-                findbook='t';
+                finddonor='t';
             }
         }
-        if(findbook!='t')
+        if(finddonor!='t')
         {
             gotoxy(10,10);
             printf("No record is found modify the search");
             if(getch())
                 mainmenu();
         }
-        if(findbook=='t' )
+        if(finddonor=='t' )
         {
             gotoxy(10,9);
             printf("Do you want to delete it?(Y/N):");
@@ -610,10 +610,10 @@ void deleteDonors(void)    //funtion that delete donor
                 }
                 fclose(ft);
                 fclose(fp);
-                remove("Bibek.dat");
-                rename("test.dat","Bibek.dat"); //copy all item from temporary file to fp except that
-                fp=fopen("Bibek.dat","rb+");    //we want to delete
-                if(findbook=='t')
+                remove("List.dat");
+                rename("test.dat","List.dat"); //copy all item from temporary file to fp except that
+                fp=fopen("List.dat","rb+");    //we want to delete
+                if(finddonor=='t')
                 {
                     gotoxy(10,10);
                     printf("The record is sucessfully deleted");
